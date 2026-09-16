@@ -14,3 +14,19 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+from app.core.security import decode_access_token
+
+security = HTTPBearer()
+
+
+def get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
+    try:
+        payload = decode_access_token(credentials.credentials)
+        return payload["user_id"]
+    except Exception:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
