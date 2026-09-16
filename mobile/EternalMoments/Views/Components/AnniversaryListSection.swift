@@ -140,7 +140,7 @@ class AnniversaryListViewModel: ObservableObject {
                 method: "DELETE",
                 token: token
             )
-            await loadAnniversaries(contactId: self.contactId)
+            await loadAnniversaries(contactId: contactId)
         } catch {
             errorMessage = error.localizedDescription
         }
