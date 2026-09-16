@@ -9,6 +9,15 @@ class NotificationService {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
     }
 
+    private static let isoFormatters: [DateFormatter] = {
+        ["yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm"].map { format in
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = format
+            return formatter
+        }
+    }()
+
     func scheduleReminder(reminder: Reminder) {
         let content = UNMutableNotificationContent()
         content.title = reminder.eventTitle
@@ -17,12 +26,8 @@ class NotificationService {
             : "纪念日快到了，点击查看礼物推荐"
         content.sound = .default
 
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        let formats = ["yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm"]
         var remindDate: Date?
-        for format in formats {
-            formatter.dateFormat = format
+        for formatter in Self.isoFormatters {
             if let date = formatter.date(from: reminder.remindTime) {
                 remindDate = date
                 break

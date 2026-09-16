@@ -28,7 +28,9 @@ struct RemindersView: View {
                 } else {
                     List(viewModel.reminders) { reminder in
                         ReminderCard(reminder: reminder) {
-                            Task { await viewModel.markRead(reminder) }
+                            if reminder.status == "unread" {
+                                Task { await viewModel.markRead(reminder) }
+                            }
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

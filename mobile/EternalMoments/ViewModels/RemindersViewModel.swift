@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 class RemindersViewModel: ObservableObject {
     @Published var reminders: [Reminder] = []
     @Published var isLoading = false
@@ -8,6 +9,7 @@ class RemindersViewModel: ObservableObject {
     private let api = APIClient.shared
 
     func loadReminders() async {
+        errorMessage = nil
         isLoading = true
         do {
             let token = KeychainService.shared.getToken()
