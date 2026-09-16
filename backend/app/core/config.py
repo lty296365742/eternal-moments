@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     UPLOAD_DIR: str = "uploads"
     AI_PROVIDER: str = "mock"
     VOLCANO_ARK_API_KEY: str = ""
+    VOLCANO_ARK_MODEL: str = "doubao-pro-32k"
     SMS_PROVIDER: str = "mock"
 
     class Config:

@@ -5,8 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.routers import auth, contacts, anniversaries, holidays, reminders
+from app.jobs.reminder_job import start_scheduler
 
 app = FastAPI(title="Eternal Moments API", version="0.1.0")
+
+
+@app.on_event("startup")
+def startup_event():
+    start_scheduler()
 
 app.add_middleware(
     CORSMiddleware,
