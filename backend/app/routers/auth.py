@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from app.core.database import get_db, get_current_user_id
 from app.core.security import create_access_token
 from app.services.auth_service import AuthService
 from app.schemas.auth import (
@@ -9,6 +9,7 @@ from app.schemas.auth import (
     ChangePasswordRequest, AuthResponse
 )
 from app.core.config import settings
+from app.models.user import User
 
 router = APIRouter()
 
@@ -60,3 +61,20 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
             expires_in=settings.JWT_EXPIRE_DAYS * 86400
         )
     }
+
+
+@router.put("/password")
+def change_password(
+    data: ChangePasswordRequest,
+    user_id: str = Depends(get_current_user_id),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    service = AuthService(db)
+    try:
+        service.change_password(user, data)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {"code": 0, "message": "success", "data": None}

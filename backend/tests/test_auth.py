@@ -116,3 +116,47 @@ def test_login_nonexistent_phone():
         "password": TEST_PASSWORD,
     })
     assert resp.status_code == 400
+
+
+def _register_and_get_token(phone="13900000010", password="oldpass123"):
+    resp = client.post("/api/v1/auth/register", json={
+        "phone": phone,
+        "sms_code": "123456",
+        "password": password,
+    })
+    assert resp.status_code == 200
+    return resp.json()["data"]["token"]
+
+
+def test_change_password_with_old_password():
+    token = _register_and_get_token()
+    resp = client.put("/api/v1/auth/password", json={
+        "old_password": "oldpass123",
+        "new_password": "newpass456",
+    }, headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 200
+    assert resp.json()["code"] == 0
+
+    # 新密码可登录，证明修改生效
+    login_resp = client.post("/api/v1/auth/login", json={
+        "phone": "13900000010",
+        "password": "newpass456",
+    })
+    assert login_resp.status_code == 200
+
+
+def test_change_password_wrong_old_password():
+    token = _register_and_get_token()
+    resp = client.put("/api/v1/auth/password", json={
+        "old_password": "wrongpass",
+        "new_password": "newpass456",
+    }, headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 400
+
+
+def test_change_password_unauthorized():
+    resp = client.put("/api/v1/auth/password", json={
+        "old_password": "oldpass123",
+        "new_password": "newpass456",
+    })
+    assert resp.status_code == 403
