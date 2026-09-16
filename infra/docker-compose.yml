@@ -20,7 +20,11 @@ services:
       retries: 5
 
   backend:
-    build: ../backend
+    build:
+      context: ../backend
+      args:
+        # 国内服务器构建时走阿里云 PyPI 镜像；海外可移除该参数
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://mirrors.aliyun.com/pypi/simple/}
     # Dockerfile CMD starts uvicorn only; run migrations first, then start
     # the server with the exact same uvicorn invocation.
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
