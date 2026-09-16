@@ -9,10 +9,7 @@ struct ContactDetailView: View {
             VStack(spacing: 20) {
                 if let contact = viewModel.contact {
                     VStack {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 100, height: 100)
-                            .overlay(Text(String(contact.name.prefix(1))).font(.largeTitle))
+                        AvatarView(name: contact.name, avatarPath: contact.avatar, size: 100)
 
                         Text(contact.name)
                             .font(.largeTitle)

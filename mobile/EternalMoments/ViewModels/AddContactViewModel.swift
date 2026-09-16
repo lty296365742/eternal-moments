@@ -14,10 +14,10 @@ class AddContactViewModel: ObservableObject {
 
     private let api = APIClient.shared
 
-    func saveContact() async {
+    func saveContact() async -> Bool {
         guard !name.isEmpty else {
             errorMessage = "请输入姓名"
-            return
+            return false
         }
 
         isLoading = true
@@ -38,15 +38,18 @@ class AddContactViewModel: ObservableObject {
                 notes: notes.isEmpty ? nil : notes
             )
             let _: Contact = try await api.request(
-                path: "contacts",
+                path: "contacts/",
                 method: "POST",
                 body: request,
                 token: token
             )
         } catch {
             errorMessage = error.localizedDescription
+            isLoading = false
+            return false
         }
         isLoading = false
+        return true
     }
 
     private func uploadAvatar(imageData: Data, token: String?) async throws -> String {

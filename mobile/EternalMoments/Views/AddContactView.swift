@@ -40,12 +40,20 @@ struct AddContactView: View {
                         .frame(height: 100)
                 }
 
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+
                 Button("保存") {
                     Task {
-                        await viewModel.saveContact()
-                        dismiss()
+                        if await viewModel.saveContact() {
+                            dismiss()
+                        }
                     }
                 }
+                .disabled(viewModel.isLoading)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding()

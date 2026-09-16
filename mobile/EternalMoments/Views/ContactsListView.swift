@@ -40,7 +40,9 @@ struct ContactsListView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showAddContact) {
+            .sheet(isPresented: $showAddContact, onDismiss: {
+                Task { await viewModel.loadContacts() }
+            }) {
                 AddContactView()
             }
             .onAppear {
@@ -55,10 +57,7 @@ struct ContactRow: View {
 
     var body: some View {
         HStack {
-            Circle()
-                .fill(Color.gray.opacity(0.3))
-                .frame(width: 44, height: 44)
-                .overlay(Text(String(contact.name.prefix(1))).font(.headline))
+            AvatarView(name: contact.name, avatarPath: contact.avatar)
 
             VStack(alignment: .leading) {
                 Text(contact.name)
