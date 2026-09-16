@@ -22,7 +22,11 @@ struct RegisterView: View {
                             .keyboardType(.numberPad)
                         Button("获取验证码") {
                             Task {
-                                try? await authManager.sendSmsCode(phone: phone, type: "register")
+                                do {
+                                    try await authManager.sendSmsCode(phone: phone, type: "register")
+                                } catch {
+                                    errorMessage = error.localizedDescription
+                                }
                             }
                         }
                         .font(.caption)

@@ -17,14 +17,19 @@ class LoginViewModel: ObservableObject {
             return
         }
 
+        guard let authManager = authManager else {
+            errorMessage = "系统未就绪，请稍后再试"
+            return
+        }
+
         isLoading = true
         errorMessage = nil
 
         do {
             if useSmsLogin {
-                try await authManager?.login(phone: phone, smsCode: smsCode)
+                try await authManager.login(phone: phone, smsCode: smsCode)
             } else {
-                try await authManager?.login(phone: phone, password: password)
+                try await authManager.login(phone: phone, password: password)
             }
         } catch {
             errorMessage = error.localizedDescription
@@ -34,8 +39,9 @@ class LoginViewModel: ObservableObject {
     }
 
     func sendSmsCode() async {
+        guard let authManager = authManager else { return }
         do {
-            try await authManager?.sendSmsCode(phone: phone, type: "login")
+            try await authManager.sendSmsCode(phone: phone, type: "login")
         } catch {
             errorMessage = error.localizedDescription
         }

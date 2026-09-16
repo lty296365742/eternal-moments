@@ -8,6 +8,23 @@ enum APIError: Error {
     case unauthorized
 }
 
+extension APIError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "请求地址无效"
+        case .networkError(let error):
+            return "网络错误：\(error.localizedDescription)"
+        case .invalidResponse:
+            return "服务器响应异常"
+        case .serverError(_, let message):
+            return message
+        case .unauthorized:
+            return "登录已过期，请重新登录"
+        }
+    }
+}
+
 class APIClient {
     static let shared = APIClient()
     private let baseURL = URL(string: "http://localhost:8000/api/v1/")!
