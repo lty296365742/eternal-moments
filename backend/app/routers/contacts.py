@@ -1,7 +1,7 @@
 import os
 import uuid as uuid_lib
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db, get_current_user_id
@@ -21,8 +21,8 @@ def get_relationships(user_id: str = Depends(get_current_user_id), db: Session =
 def list_contacts(
     relationship: str = None,
     keyword: str = None,
-    page: int = 1,
-    page_size: int = 20,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
     user_id: str = Depends(get_current_user_id),
     db: Session = Depends(get_db)
 ):
@@ -90,20 +90,29 @@ def delete_contact(
 
 
 # 头像上传接口
+ALLOWED_AVATAR_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
+MAX_AVATAR_SIZE = 5 * 1024 * 1024  # 5MB
+
 @router.post("/upload/avatar")
 def upload_avatar(
     file: UploadFile = File(...),
     user_id: str = Depends(get_current_user_id),
-    db: Session = Depends(get_db)
 ):
+    ext = os.path.splitext(file.filename or "")[1].lower() or ".jpg"
+    if ext not in ALLOWED_AVATAR_EXTS:
+        raise HTTPException(status_code=400, detail="仅支持 jpg/png/webp 格式的图片")
+
+    content = file.file.read(MAX_AVATAR_SIZE + 1)
+    if len(content) > MAX_AVATAR_SIZE:
+        raise HTTPException(status_code=400, detail="图片大小不能超过 5MB")
+
     upload_dir = "uploads/avatars"
     os.makedirs(upload_dir, exist_ok=True)
-    ext = os.path.splitext(file.filename)[1] or ".jpg"
     filename = f"{user_id}_{uuid_lib.uuid4().hex[:8]}{ext}"
     filepath = os.path.join(upload_dir, filename)
 
     with open(filepath, "wb") as f:
-        f.write(file.file.read())
+        f.write(content)
 
     url = f"/uploads/avatars/{filename}"
     return {"code": 0, "message": "success", "data": {"url": url}}

@@ -12,7 +12,7 @@ class ContactCreate(BaseModel):
 
 class ContactUpdate(BaseModel):
     name: Optional[str] = Field(None, max_length=20)
-    relationship: Optional[str] = None
+    relationship: Optional[str] = Field(None, max_length=50)
     avatar: Optional[str] = None
     notes: Optional[str] = Field(None, max_length=200)
 

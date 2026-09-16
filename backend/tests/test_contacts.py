@@ -154,6 +154,35 @@ def test_upload_avatar(auth_headers):
     assert file_resp.status_code == 200
 
 
+def test_upload_avatar_rejects_bad_extension(auth_headers):
+    resp = client.post(
+        "/api/v1/contacts/upload/avatar",
+        files={"file": ("evil.html", io.BytesIO(b"<html></html>"), "text/html")},
+        headers=auth_headers,
+    )
+    assert resp.status_code == 400
+
+
+def test_upload_avatar_rejects_oversized(auth_headers):
+    big_content = b"x" * (5 * 1024 * 1024 + 1)
+    resp = client.post(
+        "/api/v1/contacts/upload/avatar",
+        files={"file": ("big.png", io.BytesIO(big_content), "image/png")},
+        headers=auth_headers,
+    )
+    assert resp.status_code == 400
+
+
+def test_list_contacts_rejects_page_zero(auth_headers):
+    resp = client.get("/api/v1/contacts/", params={"page": 0}, headers=auth_headers)
+    assert resp.status_code == 422
+
+
+def test_list_contacts_rejects_oversized_page_size(auth_headers):
+    resp = client.get("/api/v1/contacts/", params={"page_size": 1000}, headers=auth_headers)
+    assert resp.status_code == 422
+
+
 def test_delete_contact(auth_headers):
     create_resp = _create_contact(auth_headers)
     contact_id = create_resp.json()["data"]["contact_id"]
