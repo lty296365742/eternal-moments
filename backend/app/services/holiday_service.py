@@ -26,7 +26,12 @@ def calculate_holiday_date(rule: str, year: int) -> date:
         target = weekdays[weekday_name]
         first = date(year, month, 1)
         offset = (target - first.weekday()) % 7
-        return date(year, month, 1 + offset + (nth - 1) * 7)
+        day = 1 + offset + (nth - 1) * 7
+        import calendar
+        last_day = calendar.monthrange(year, month)[1]
+        if day > last_day:
+            day -= 7  # 当月没有第N个该星期X，取最后一个
+        return date(year, month, day)
     raise ValueError(f"无法解析的节假日规则: {rule}")
 
 
@@ -54,6 +59,20 @@ class HolidayService:
         }
 
     def set_remind_enabled(self, user_id: str, contact_id: str, holiday_id: str, enabled: bool):
+        from app.models.contact import Contact
+        contact = self.db.query(Contact).filter(
+            Contact.contact_id == contact_id,
+            Contact.user_id == user_id
+        ).first()
+        if not contact:
+            raise ValueError("联系人不存在")
+        holiday = self.db.query(SystemHoliday).filter(
+            SystemHoliday.holiday_id == holiday_id,
+            SystemHoliday.status == 1
+        ).first()
+        if not holiday:
+            raise ValueError("节假日不存在")
+
         record = self.db.query(ContactHoliday).filter(
             ContactHoliday.user_id == user_id,
             ContactHoliday.contact_id == contact_id,

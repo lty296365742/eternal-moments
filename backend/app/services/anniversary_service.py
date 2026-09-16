@@ -19,14 +19,49 @@ class AnniversaryService:
     def calculate_next_date(self, month_day: str, repeat_type: str) -> date:
         today = date.today()
         month, day = map(int, month_day.split("-"))
-        year = today.year
-        candidate = date(year, month, day)
+
+        def safe_date(year: int) -> date:
+            try:
+                return date(year, month, day)
+            except ValueError:
+                # 2月29日纪念日：非闰年提前到2月28日
+                return date(year, month, day - 1)
+
+        if repeat_type == "monthly":
+            year, m = today.year, today.month
+            candidate_this_month = None
+            try:
+                candidate_this_month = date(year, m, day)
+            except ValueError:
+                # 当月没有这一天（如31日遇到小月），顺延到月末
+                import calendar
+                candidate_this_month = date(year, m, calendar.monthrange(year, m)[1])
+            if candidate_this_month >= today:
+                return candidate_this_month
+            if m == 12:
+                year, m = year + 1, 1
+            else:
+                m += 1
+            try:
+                return date(year, m, day)
+            except ValueError:
+                import calendar
+                return date(year, m, calendar.monthrange(year, m)[1])
+
+        candidate = safe_date(today.year)
         if candidate < today:
-            year += 1
-            candidate = date(year, month, day)
+            candidate = safe_date(today.year + 1)
         return candidate
 
     def create_anniversary(self, user_id: str, data: AnniversaryCreate) -> Anniversary:
+        from app.models.contact import Contact
+        contact = self.db.query(Contact).filter(
+            Contact.contact_id == data.contact_id,
+            Contact.user_id == user_id
+        ).first()
+        if not contact:
+            raise ValueError("联系人不存在")
+
         template = None
         if data.title_key:
             template = self.db.query(AnniversaryTemplate).filter(
@@ -64,7 +99,8 @@ class AnniversaryService:
     def update_anniversary(self, user_id: str, anniversary_id: str, data: AnniversaryUpdate) -> Anniversary:
         anniversary = self.db.query(Anniversary).filter(
             Anniversary.anniversary_id == anniversary_id,
-            Anniversary.user_id == user_id
+            Anniversary.user_id == user_id,
+            Anniversary.status == 1
         ).first()
         if not anniversary:
             raise ValueError("纪念日不存在")

@@ -15,12 +15,15 @@ client = TestClient(app)
 
 TEST_PHONE = "13900000201"
 TEST_PASSWORD = "testpass123"
+TEST_PHONE_2 = "13900000301"
 
 
 def cleanup_test_data():
     db = SessionLocal()
     try:
-        test_users = db.query(User).filter(User.phone.like("139000002%")).all()
+        test_users = db.query(User).filter(
+            (User.phone.like("139000002%")) | (User.phone.like("139000003%"))
+        ).all()
         for u in test_users:
             db.query(Anniversary).filter(Anniversary.user_id == u.user_id).delete(synchronize_session=False)
             db.query(ContactHoliday).filter(ContactHoliday.user_id == u.user_id).delete(synchronize_session=False)
@@ -40,11 +43,20 @@ def clean_test_data():
 
 @pytest.fixture
 def auth_headers():
+    return _register_and_login(TEST_PHONE)
+
+
+@pytest.fixture
+def auth_headers_2():
+    return _register_and_login(TEST_PHONE_2, nickname="纪念日测试用户2")
+
+
+def _register_and_login(phone, nickname="纪念日测试用户"):
     resp = client.post("/api/v1/auth/register", json={
-        "phone": TEST_PHONE,
+        "phone": phone,
         "sms_code": "123456",
         "password": TEST_PASSWORD,
-        "nickname": "纪念日测试用户",
+        "nickname": nickname,
     })
     assert resp.status_code == 200
     token = resp.json()["data"]["token"]
@@ -207,3 +219,95 @@ def test_toggle_holiday_remind(auth_headers):
 def test_unauthorized():
     resp = client.get("/api/v1/anniversaries/")
     assert resp.status_code == 403
+
+
+def test_create_anniversary_feb29(auth_headers):
+    contact_id = _create_contact(auth_headers)
+    resp = client.post("/api/v1/anniversaries/", json={
+        "contact_id": contact_id,
+        "title": "闰日纪念日",
+        "date": "02-29",
+    }, headers=auth_headers)
+    assert resp.status_code == 200
+    next_date = date.fromisoformat(resp.json()["data"]["next_date"])
+    assert next_date.month == 2
+    assert next_date.day in (28, 29)
+
+
+def test_create_anniversary_impossible_date(auth_headers):
+    contact_id = _create_contact(auth_headers)
+    for bad_date in ["02-30", "04-31"]:
+        resp = client.post("/api/v1/anniversaries/", json={
+            "contact_id": contact_id,
+            "title": "无效日期",
+            "date": bad_date,
+        }, headers=auth_headers)
+        assert resp.status_code == 422, bad_date
+
+
+def test_create_monthly_anniversary_rolls_to_next_month(auth_headers):
+    today = date.today()
+    if today.day == 1:
+        pytest.skip("当月1号无法构造本月已过的日期")
+    contact_id = _create_contact(auth_headers)
+    month_day = f"{today.month:02d}-{today.day - 1:02d}"
+    resp = client.post("/api/v1/anniversaries/", json={
+        "contact_id": contact_id,
+        "title": "月度纪念日",
+        "date": month_day,
+        "repeat_type": "monthly",
+    }, headers=auth_headers)
+    assert resp.status_code == 200
+    next_date = date.fromisoformat(resp.json()["data"]["next_date"])
+    if today.month == 12:
+        expected_year, expected_month = today.year + 1, 1
+    else:
+        expected_year, expected_month = today.year, today.month + 1
+    assert (next_date.year, next_date.month) == (expected_year, expected_month)
+    assert next_date.day == today.day - 1
+
+
+def test_create_anniversary_with_other_users_contact(auth_headers, auth_headers_2):
+    other_contact_id = _create_contact(auth_headers_2, name="别人的妈妈")
+    resp = client.post("/api/v1/anniversaries/", json={
+        "contact_id": other_contact_id,
+        "title": "越权纪念日",
+        "date": "03-15",
+    }, headers=auth_headers)
+    assert resp.status_code == 404
+
+
+def test_toggle_remind_other_users_contact(auth_headers, auth_headers_2):
+    other_contact_id = _create_contact(auth_headers_2, name="别人的妈妈")
+    resp = client.put(
+        f"/api/v1/holidays/contacts/{other_contact_id}/holidays/H0004/remind",
+        json={"remind_enabled": True},
+        headers=auth_headers,
+    )
+    assert resp.status_code == 404
+
+
+def test_toggle_remind_nonexistent_holiday(auth_headers):
+    contact_id = _create_contact(auth_headers)
+    resp = client.put(
+        f"/api/v1/holidays/contacts/{contact_id}/holidays/H9999/remind",
+        json={"remind_enabled": True},
+        headers=auth_headers,
+    )
+    assert resp.status_code == 404
+
+
+def test_update_soft_deleted_anniversary(auth_headers):
+    contact_id = _create_contact(auth_headers)
+    create_resp = client.post("/api/v1/anniversaries/", json={
+        "contact_id": contact_id,
+        "title": "待删除纪念日",
+        "date": "03-15",
+    }, headers=auth_headers)
+    anniversary_id = create_resp.json()["data"]["anniversary_id"]
+    client.delete(f"/api/v1/anniversaries/{anniversary_id}", headers=auth_headers)
+
+    resp = client.put(f"/api/v1/anniversaries/{anniversary_id}", json={
+        "title": "更新已删除",
+    }, headers=auth_headers)
+    assert resp.status_code == 404

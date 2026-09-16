@@ -33,7 +33,10 @@ def create_anniversary(
     db: Session = Depends(get_db)
 ):
     service = AnniversaryService(db)
-    anniversary = service.create_anniversary(user_id, data)
+    try:
+        anniversary = service.create_anniversary(user_id, data)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     return {"code": 0, "message": "success", "data": anniversary}
 
 

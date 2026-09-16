@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, DateTime, SmallInteger, JSON
+from sqlalchemy import Column, BigInteger, String, DateTime, SmallInteger, JSON, UniqueConstraint
 from sqlalchemy.sql import func
 
 from app.core.database import Base
@@ -20,6 +20,9 @@ class SystemHoliday(Base):
 
 class ContactHoliday(Base):
     __tablename__ = "t_contact_holiday"
+    __table_args__ = (
+        UniqueConstraint("contact_id", "holiday_id", name="uq_contact_holiday"),
+    )
 
     id = Column(BigInteger, primary_key=True, autoincrement=True)
     contact_id = Column(String(32), nullable=False, index=True)

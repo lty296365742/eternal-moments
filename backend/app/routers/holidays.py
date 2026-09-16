@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db, get_current_user_id
@@ -28,5 +28,8 @@ def set_remind(
     db: Session = Depends(get_db)
 ):
     service = HolidayService(db)
-    service.set_remind_enabled(user_id, contact_id, holiday_id, data.remind_enabled)
+    try:
+        service.set_remind_enabled(user_id, contact_id, holiday_id, data.remind_enabled)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     return {"code": 0, "message": "success", "data": None}
