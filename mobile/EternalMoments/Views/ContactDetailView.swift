@@ -3,6 +3,7 @@ import SwiftUI
 struct ContactDetailView: View {
     let contactId: String
     @StateObject private var viewModel = ContactDetailViewModel()
+    @State private var selectedTab = 0
 
     var body: some View {
         ScrollView {
@@ -25,6 +26,19 @@ struct ContactDetailView: View {
                         }
                     }
                     .padding()
+
+                    Picker("标签页", selection: $selectedTab) {
+                        Text("纪念日").tag(0)
+                        Text("节假日").tag(1)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+
+                    if selectedTab == 0 {
+                        AnniversaryListSection(contactId: contactId, contactName: contact.name)
+                    } else {
+                        HolidayListSection(contactId: contactId, relationship: contact.relationship)
+                    }
                 }
             }
         }
