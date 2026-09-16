@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Eternal Moments - 登录</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {secondary: "#775a19", "anniversary-gold": "#C5A059", "secondary-fixed-dim": "#e9c176", "on-primary-container": "#ffffff", "on-error": "#ffffff", "on-background": "#261818", "on-secondary-container": "#785a1a", "tertiary-fixed": "#8ef6d2", "secondary-fixed": "#ffdea5", "on-surface-variant": "#594141", "on-secondary-fixed": "#261900", "primary-container": "#d43f52", "inverse-surface": "#3c2c2d", "error-container": "#ffdad6", "surface-container-low": "#fff0f0", "on-primary-fixed-variant": "#910427", "relationship-family": "#5856D6", "surface-container-highest": "#f6dddc", "on-tertiary-container": "#fffffc", "relationship-custom": "#AF52DE", "on-error-container": "#93000a", "on-secondary": "#ffffff", "primary-fixed-dim": "#ffb3b5", "on-surface": "#261818", tertiary: "#006a52", "surface-dim": "#eed4d4", "secondary-background": "#FFFFFF", error: "#ba1a1a", "inverse-primary": "#ffb3b5", "tertiary-background": "#F9F9F9", outline: "#8d7071", "surface-container": "#ffe9e9", "celebration-ruby": "#D43F52", "relationship-social": "#34C759", background: "#fff8f7", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#5d4201", "inverse-on-surface": "#ffedec", "system-background": "#F2F2F7", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#002117", "primary-fixed": "#ffdada", "on-primary-fixed": "#40000c", "tertiary-fixed-dim": "#72d9b6", "tertiary-container": "#008668", surface: "#fff8f7", "on-tertiary-fixed-variant": "#00513e", "surface-variant": "#f6dddc", "surface-tint": "#b3263c", "secondary-container": "#fed488", primary: "#b2253c", "on-primary": "#ffffff", "surface-container-high": "#fce2e2", "outline-variant": "#e1bebf", "surface-bright": "#fff8f7"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"touch-target": "2.75rem", "margin-page": "1rem", "stack-sm": "0.25rem", "stack-md": "0.5rem", "stack-lg": "1rem", "gutter-card": "0.75rem"}, fontFamily: {"title-lg": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "label-caps": ["Inter"], caption: ["Inter"], "display-lg": ["Inter"], "body-lg": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"title-lg": ["22px", {lineHeight: "28px", letterSpacing: "0.35px", fontWeight: "600"}], "headline-md": ["28px", {lineHeight: "34px", letterSpacing: "0.36px", fontWeight: "600"}], "body-sm": ["15px", {lineHeight: "20px", letterSpacing: "-0.24px", fontWeight: "400"}], "title-sm": ["20px", {lineHeight: "25px", letterSpacing: "0.38px", fontWeight: "500"}], "label-caps": ["13px", {lineHeight: "18px", letterSpacing: "0.06px", fontWeight: "500"}], caption: ["12px", {lineHeight: "16px", fontWeight: "400"}], "display-lg": ["34px", {lineHeight: "41px", letterSpacing: "0.37px", fontWeight: "700"}], "body-lg": ["17px", {lineHeight: "22px", letterSpacing: "-0.41px", fontWeight: "400"}]}}}};</script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center overflow-hidden">
+<!-- Top Glow Effect (Atmospheric) -->
+<div class="fixed top-[-100px] left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-celebration-ruby opacity-10 blur-[100px] pointer-events-none" style="transform: translate(calc(-50% + 8.5641px), -0.882353px);"></div>
+<main class="w-full flex-1 flex flex-col px-margin-page pt-20 pb-12 relative z-10 w-[390px] mx-auto">
+<!-- Brand Header Section -->
+<header class="flex flex-col items-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="w-20 h-20 mb-6 flex items-center justify-center rounded-[22px] bg-gradient-to-br from-celebration-ruby to-primary shadow-xl">
+<span class="material-symbols-outlined text-on-primary !text-[44px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-celebration-ruby tracking-tight">纪念日</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 text-center">不仅仅是日子，更是生活</p>
+</header>
+<!-- Login Form Container -->
+<section class="flex-1 flex flex-col gap-stack-lg w-full mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+<!-- Input Group -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant overflow-hidden">
+<!-- Phone Field -->
+<div class="relative px-4 py-3 border-b border-outline-variant group focus-within:bg-surface-container">
+<label class="block font-caption text-caption text-on-surface-variant mb-0.5">手机号码</label>
+<div class="flex items-center">
+<span class="font-body-lg text-body-lg text-on-surface-variant mr-2">+86</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-lg text-body-lg placeholder:text-outline-variant" placeholder="请输入手机号" type="tel"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="relative px-4 py-3 group focus-within:bg-surface-container">
+<div class="flex justify-between items-center">
+<div class="flex-1">
+<label class="block font-caption text-caption text-on-surface-variant mb-0.5">密码</label>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-lg text-body-lg placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+</div>
+<button class="p-2 text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Forgot Password -->
+<div class="flex justify-end">
+<a class="font-label-caps text-label-caps text-celebration-ruby hover:opacity-70 transition-opacity" href="#">忘记密码？</a>
+</div>
+<!-- Primary Action -->
+<button class="w-full h-touch-target bg-celebration-ruby hover:brightness-110 active:scale-[0.98] transition-all rounded-[10px] text-on-primary font-title-lg text-title-lg shadow-[0px_8px_20px_rgba(212,63,82,0.15)] mt-4">
+                登录
+            </button>
+<!-- FaceID / Biometric Toggle (iOS Flavor) -->
+<div class="mt-8 flex flex-col items-center gap-4">
+<button class="flex items-center gap-2 px-6 py-2 rounded-full bg-surface-container-high/50 text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined !text-[20px]">face</span>
+<span class="font-label-caps text-label-caps">使用面容 ID 登录</span>
+</button>
+</div>
+</section>
+<!-- Footer Links -->
+<footer class="mt-auto pt-8 flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-500">
+<div class="flex items-center gap-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">还没有账号？</span>
+<a class="font-body-sm text-body-sm text-celebration-ruby font-semibold" href="#">立即注册</a>
+</div>
+<div class="flex gap-4">
+<a class="font-caption text-caption text-outline hover:text-on-surface-variant" href="#">隐私政策</a>
+<span class="text-outline-variant">•</span>
+<a class="font-caption text-caption text-outline hover:text-on-surface-variant" href="#">服务条款</a>
+</div>
+</footer>
+</main>
+<!-- Visual Background Atmosphere -->
+<div class="fixed inset-0 pointer-events-none -z-10">
+<div class="absolute bottom-[-10%] right-[-10%] w-1/2 h-1/2 bg-anniversary-gold opacity-[0.03] blur-[120px] rounded-full"></div>
+</div>
+<script>
+        // Simple scale interaction for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('touchend', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Optional: Atmospheric shift on movement
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            const glow = document.querySelector('.fixed.top-\\[-100px\\]');
+            if (glow) {
+                glow.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
+            }
+        });
+    </script>
+</body></html>

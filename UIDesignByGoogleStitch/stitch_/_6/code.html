@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="zh" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-bright": "#fff8f7", "surface-container-high": "#fce2e2", "inverse-primary": "#ffb3b5", "secondary-fixed-dim": "#e9c176", error: "#ba1a1a", "on-primary-container": "#ffffff", "anniversary-gold": "#C5A059", "primary-container": "#d43f52", surface: "#fff8f7", "inverse-on-surface": "#ffedec", "relationship-custom": "#AF52DE", "on-secondary-container": "#785a1a", "system-background": "#F2F2F7", "surface-dim": "#eed4d4", "on-error-container": "#93000a", "on-background": "#261818", "secondary-background": "#FFFFFF", "primary-fixed-dim": "#ffb3b5", "tertiary-container": "#008668", primary: "#b2253c", "on-primary-fixed": "#40000c", secondary: "#775a19", "surface-variant": "#f6dddc", "on-surface": "#261818", "on-secondary-fixed": "#261900", "tertiary-fixed-dim": "#72d9b6", "celebration-ruby": "#D43F52", tertiary: "#006a52", "surface-container-highest": "#f6dddc", "inverse-surface": "#3c2c2d", "outline-variant": "#e1bebf", "on-secondary-fixed-variant": "#5d4201", "on-primary": "#ffffff", background: "#fff8f7", "tertiary-background": "#F9F9F9", "relationship-social": "#34C759", "on-tertiary-fixed": "#002117", "surface-tint": "#b3263c", "primary-fixed": "#ffdada", "on-surface-variant": "#594141", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "relationship-family": "#5856D6", "on-tertiary-container": "#fffffc", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "on-primary-fixed-variant": "#910427", "surface-container-low": "#fff0f0", "tertiary-fixed": "#8ef6d2", "secondary-fixed": "#ffdea5", "secondary-container": "#fed488", "on-tertiary-fixed-variant": "#00513e", outline: "#8d7071", "surface-container": "#ffe9e9", "error-container": "#ffdad6"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"stack-lg": "1rem", "gutter-card": "0.75rem", "stack-md": "0.5rem", "touch-target": "2.75rem", "margin-page": "1rem", "stack-sm": "0.25rem"}, fontFamily: {"body-lg": ["Inter"], "body-sm": ["Inter"], "label-caps": ["Inter"], "headline-md": ["Inter"], "display-lg": ["Inter"], "title-lg": ["Inter"], caption: ["Inter"], "title-sm": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"body-lg": ["17px", {lineHeight: "22px", letterSpacing: "-0.41px", fontWeight: "400"}], "body-sm": ["15px", {lineHeight: "20px", letterSpacing: "-0.24px", fontWeight: "400"}], "label-caps": ["13px", {lineHeight: "18px", letterSpacing: "0.06px", fontWeight: "500"}], "headline-md": ["28px", {lineHeight: "34px", letterSpacing: "0.36px", fontWeight: "600"}], "display-lg": ["34px", {lineHeight: "41px", letterSpacing: "0.37px", fontWeight: "700"}], "title-lg": ["22px", {lineHeight: "28px", letterSpacing: "0.35px", fontWeight: "600"}], caption: ["12px", {lineHeight: "16px", fontWeight: "400"}], "title-sm": ["20px", {lineHeight: "25px", letterSpacing: "0.38px", fontWeight: "500"}]}}}};</script>
+<style>
+        body {
+            background-color: #F2F2F7; /* iOS System Background */
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-list-item:active {
+            background-color: #E5E5EA;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-header {
+            background: rgba(255, 248, 247, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-header">
+<div class="flex justify-between items-center px-margin-page h-touch-target w-full">
+<button class="hover:opacity-80 transition-opacity Active: scale-95 transition-transform duration-200">
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface">设置</h1>
+<div class="w-touch-target h-touch-target flex items-center justify-end">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="" data-alt="A professional portrait of a woman in a minimalist white studio. The lighting is soft and high-key, creating a clean light-mode aesthetic. Her expression is warm and reliable, reflecting the brand's quiet concierge personality. The overall color palette is dominated by soft whites and skin tones with a subtle ruby accent in her accessory." src="https://lh3.googleusercontent.com/aida/AEtjO1XHS4baSKsMogNdy41feBdZ4xBUueMjAneHmjN9mnHhzUyL4hPy5rP-7OtwQcAO_bCsHuljfKW-gV3Sqt0gfG37-TjL7sLkZkbiWwOS2Q-F9KtMYF_PdYj1vTGIr5GLPAeKIkBHekzXHlwWpLLlrMAu0DRN6S7uGU5FBe9JSuoLtUspWe41FBGD7kTAQYfyjR-xGzuj4wTo9VOB_cEFVwjRV_LP20cJQZtlQ8uu5syR8OeUJCNyZnXim8s"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-32 px-4 max-w-[600px] mx-auto min-h-screen">
+<!-- Account Safety Section -->
+<section class="mb-stack-lg"><h2 class="px-4 pb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">个人档案</h2><div class="bg-secondary-background rounded-xl overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.05)]"><div class="ios-list-item flex items-center justify-between p-4 cursor-pointer transition-colors active:scale-95 transition-transform duration-150" onclick="window.location.href='#/add-contact'" role="button"><div class="flex items-center gap-3.5"><div class="w-14 h-14 rounded-full overflow-hidden border border-outline-variant shrink-0 bg-surface-container-high"><img alt="林夏的头像" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XHS4baSKsMogNdy41feBdZ4xBUueMjAneHmjN9mnHhzUyL4hPy5rP-7OtwQcAO_bCsHuljfKW-gV3Sqt0gfG37-TjL7sLkZkbiWwOS2Q-F9KtMYF_PdYj1vTGIr5GLPAeKIkBHekzXHlwWpLLlrMAu0DRN6S7uGU5FBe9JSuoLtUspWe41FBGD7kTAQYfyjR-xGzuj4wTo9VOB_cEFVwjRV_LP20cJQZtlQ8uu5syR8OeUJCNyZnXim8s"/></div><div class="flex flex-col"><div class="flex items-center gap-2"><span class="font-title-sm text-title-sm font-semibold text-on-surface">林夏</span><span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-surface-container-high text-celebration-ruby">我的纪念日</span></div><span class="text-body-sm font-caption text-on-surface-variant text-[13px] mt-0.5">点击进入个人基本信息管理</span></div></div><span class="material-symbols-outlined text-outline-variant text-[22px]" data-icon="chevron_right">chevron_right</span></div></div></section>
+<!-- Language Settings Section -->
+<section class="mb-stack-lg">
+<h2 class="px-4 pb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">语言设置</h2>
+<div class="bg-secondary-background rounded-xl overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.05)]">
+<!-- Chinese (Active) -->
+<div class="ios-list-item flex items-center justify-between px-4 h-touch-target border-b border-surface-variant cursor-pointer transition-colors" onclick="selectLanguage(this)">
+<span class="font-body-lg text-body-lg">中文</span>
+<span class="material-symbols-outlined text-celebration-ruby" data-icon="check" id="check-zh">check</span>
+</div>
+<!-- English -->
+<div class="ios-list-item flex items-center justify-between px-4 h-touch-target border-b border-surface-variant cursor-pointer transition-colors" onclick="selectLanguage(this)">
+<span class="font-body-lg text-body-lg">English</span>
+<span class="material-symbols-outlined opacity-0" data-icon="check">check</span>
+</div>
+<!-- Japanese -->
+<div class="ios-list-item flex items-center justify-between px-4 h-touch-target cursor-pointer transition-colors" onclick="selectLanguage(this)">
+<span class="font-body-lg text-body-lg">日本語</span>
+<span class="material-symbols-outlined opacity-0" data-icon="check">check</span>
+</div>
+</div>
+</section>
+<!-- Legal & Privacy Section -->
+<section class="mb-stack-lg">
+<h2 class="px-4 pb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">法律与隐私</h2>
+<div class="bg-secondary-background rounded-xl overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.05)]">
+<div class="ios-list-item flex items-center justify-between px-4 h-touch-target border-b border-surface-variant cursor-pointer transition-colors">
+<span class="font-body-lg text-body-lg">隐私权政策</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="ios-list-item flex items-center justify-between px-4 h-touch-target cursor-pointer transition-colors">
+<span class="font-body-lg text-body-lg">服务条款</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Log Out Button -->
+<div class="mt-12 px-4">
+<button class="w-full bg-secondary-background h-touch-target rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center font-title-sm text-title-sm text-celebration-ruby active:scale-95 transition-transform duration-150">
+                退出登录
+            </button>
+<p class="mt-4 text-center font-caption text-caption text-on-surface-variant opacity-60">Eternal Moments Version 2.4.0</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-2 pb-safe px-4 bg-surface/80 backdrop-blur-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:bg-surface-container-high/50 transition-colors cursor-pointer w-full py-2 Active: scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="contacts">contacts</span>
+<span class="font-label-caps text-label-caps">联系人</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:bg-surface-container-high/50 transition-colors cursor-pointer w-full py-2 Active: scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-caps text-label-caps">提醒</span>
+</div>
+<div class="flex flex-col items-center justify-center text-celebration-ruby font-semibold hover:bg-surface-container-high/50 transition-colors cursor-pointer w-full py-2 Active: scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="settings" style='font-variation-settings: "FILL" 1;'>settings</span>
+<span class="font-label-caps text-label-caps">设置</span>
+</div>
+</nav>
+<script>
+        function selectLanguage(element) {
+            // Remove checkmark from all items in the section
+            const section = element.closest('.bg-secondary-background');
+            const allCheckmarks = section.querySelectorAll('.material-symbols-outlined[data-icon="check"]');
+            
+            allCheckmarks.forEach(check => {
+                check.classList.add('opacity-0');
+                check.classList.remove('text-celebration-ruby');
+            });
+
+            // Add checkmark to selected item
+            const currentCheck = element.querySelector('.material-symbols-outlined[data-icon="check"]');
+            currentCheck.classList.remove('opacity-0');
+            currentCheck.classList.add('text-celebration-ruby');
+
+            // Feedback vibration if supported
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+        }
+
+        // Add visual touch feedback for list items
+        document.querySelectorAll('.ios-list-item').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.backgroundColor = '#E5E5EA';
+            });
+            item.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    item.style.backgroundColor = '';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

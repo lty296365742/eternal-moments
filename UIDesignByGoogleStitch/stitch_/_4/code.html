@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>提醒中心 - Eternal Moments</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {secondary: "#775a19", "anniversary-gold": "#C5A059", "secondary-fixed-dim": "#e9c176", "on-primary-container": "#ffffff", "on-error": "#ffffff", "on-background": "#261818", "on-secondary-container": "#785a1a", "tertiary-fixed": "#8ef6d2", "secondary-fixed": "#ffdea5", "on-surface-variant": "#594141", "on-secondary-fixed": "#261900", "primary-container": "#d43f52", "inverse-surface": "#3c2c2d", "error-container": "#ffdad6", "surface-container-low": "#fff0f0", "on-primary-fixed-variant": "#910427", "relationship-family": "#5856D6", "surface-container-highest": "#f6dddc", "on-tertiary-container": "#fffffc", "relationship-custom": "#AF52DE", "on-error-container": "#93000a", "on-secondary": "#ffffff", "primary-fixed-dim": "#ffb3b5", "on-surface": "#261818", tertiary: "#006a52", "surface-dim": "#eed4d4", "secondary-background": "#FFFFFF", error: "#ba1a1a", "inverse-primary": "#ffb3b5", "tertiary-background": "#F9F9F9", outline: "#8d7071", "surface-container": "#ffe9e9", "celebration-ruby": "#D43F52", "relationship-social": "#34C759", background: "#fff8f7", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#5d4201", "inverse-on-surface": "#ffedec", "system-background": "#F2F2F7", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#002117", "primary-fixed": "#ffdada", "on-primary-fixed": "#40000c", "tertiary-fixed-dim": "#72d9b6", "tertiary-container": "#008668", surface: "#fff8f7", "on-tertiary-fixed-variant": "#00513e", "surface-variant": "#f6dddc", "surface-tint": "#b3263c", "secondary-container": "#fed488", primary: "#b2253c", "on-primary": "#ffffff", "surface-container-high": "#fce2e2", "outline-variant": "#e1bebf", "surface-bright": "#fff8f7"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"touch-target": "2.75rem", "margin-page": "1rem", "stack-sm": "0.25rem", "stack-md": "0.5rem", "stack-lg": "1rem", "gutter-card": "0.75rem"}, fontFamily: {"title-lg": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "label-caps": ["Inter"], caption: ["Inter"], "display-lg": ["Inter"], "body-lg": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"title-lg": ["22px", {lineHeight: "28px", letterSpacing: "0.35px", fontWeight: "600"}], "headline-md": ["28px", {lineHeight: "34px", letterSpacing: "0.36px", fontWeight: "600"}], "body-sm": ["15px", {lineHeight: "20px", letterSpacing: "-0.24px", fontWeight: "400"}], "title-sm": ["20px", {lineHeight: "25px", letterSpacing: "0.38px", fontWeight: "500"}], "label-caps": ["13px", {lineHeight: "18px", letterSpacing: "0.06px", fontWeight: "500"}], caption: ["12px", {lineHeight: "16px", fontWeight: "400"}], "display-lg": ["34px", {lineHeight: "41px", letterSpacing: "0.37px", fontWeight: "700"}], "body-lg": ["17px", {lineHeight: "22px", letterSpacing: "-0.41px", fontWeight: "400"}]}}}};</script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ios-shadow {
+            shadow-color: rgba(0, 0, 0, 0.05);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        body {
+            background-color: #F2F2F7; /* system-background */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-lg text-on-background">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl flex justify-between items-center px-margin-page h-touch-target relative">
+<div class="flex items-center justify-center w-full absolute left-0 right-0 pointer-events-none">
+<h1 class="font-title-lg text-title-lg text-celebration-ruby pointer-events-auto">提醒记录</h1>
+</div><button class="z-10 text-celebration-ruby hover:opacity-70 transition-opacity active:scale-95 duration-200 absolute right-margin-page top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-[24px]">delete</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-page max-w-[600px] mx-auto min-h-screen pt-10 pb-[50px]">
+<!-- Section Header -->
+<div class="flex flex-col gap-3">
+<!-- Card 1: Holiday (Mother's Day) -->
+<section class="glass-card ios-shadow rounded-xl p-4 relative overflow-hidden group" style="transform: translate(1.64px, -4.665px);">
+<!-- Status Badge -->
+<div class="absolute top-4 left-4 flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-celebration-ruby shadow-[0_0_8px_rgba(212,63,82,0.4)]"></span>
+<span class="font-label-caps text-[10px] text-celebration-ruby font-bold uppercase tracking-tighter">新时刻</span>
+</div>
+<div class="mt-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-sm text-title-sm text-on-surface">母亲节</h3>
+<span class="font-label-caps text-celebration-ruby font-semibold">还有2天</span>
+</div>
+<!-- AI Poster Section -->
+<div class="relative rounded-xl overflow-hidden aspect-[16/9] flex items-center justify-center p-6 bg-gradient-to-br from-celebration-ruby/10 to-anniversary-gold/10 mb-3">
+<img alt="母亲节主题插画" class="absolute inset-0 w-full h-auto object-cover opacity-60 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3Rx02kUq_vRHntYWLZTkfXxwNaV2X24fXEqyOmnF_RZeWApUQtTwepfW-H_yBbX3fUn5MBfijtBdFJaObhKy8IhnCrOb2kkoHGtn3zF9BEENAkayT7bBRFOu4_j15GBg-xx7xntnge67kpS9kZl50PUZq9HsYG6qdPu5HJVodk6dnI2uYrc3yV6SmBQizx-cWkH_qJdeRh532cepi6GjbtUEYFanvM9NavHpiQxZdAviwyaZzQYcG0Zs6D0Qoo50eENMwb3fn3m8"/>
+<div class="relative z-10 text-center">
+<p class="italic font-title-lg text-title-lg text-on-surface-variant drop-shadow-sm leading-relaxed">
+                            “母爱是让一个普通人实现不可能之事的动力。”
+                        </p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/30 mb-3">
+<p class="font-body-sm text-body-sm text-on-surface-variant italic leading-snug">
+                        “妈妈，谢谢您成为我们温暖港湾的核心。您的坚强与温柔每天都在激励着我。母亲节快乐！”
+                    </p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 h-10 bg-celebration-ruby text-white font-label-caps text-label-caps rounded-[10px] flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-celebration-ruby/20">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+                        复制祝福语
+                    </button>
+<button class="w-10 h-10 border border-anniversary-gold text-anniversary-gold rounded-[10px] flex items-center justify-center hover:bg-anniversary-gold/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+<div class="pt-6 border-t border-outline-variant/20 flex items-center gap-3 mt-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/80 bg-surface-container-highest flex-shrink-0">
+<img alt="妈妈" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxKazHU7A69eHP1D1cShySJVt9MEeOERSrWHRVmcf2ntxHPIHeGRCy8LW3oR-b7VHjb0gsmPGm9Ks0UYLpAWu0uNo8Ligg1eREWSoSHh5Dpk_nEKqJJme9tDEqLUZetEMt0kbhOD4LC1zFHdp0mxRRp_31uifwyKDkgPo0ZcSsE9Gn0DeLMpaBdjtLGGf5B0qKnZNedF5XLHsmCEQ3i432HklTd6ByqF61FUwcp1FUyk23eDH8OwUs50pw4wcOWeg1mfBKkNfyyvw"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-title-sm text-[16px] text-on-surface font-semibold leading-tight">妈妈</span>
+<span class="font-caption text-caption text-on-surface-variant opacity-70">家人</span>
+</div>
+</div></div>
+</section>
+<!-- Card 2: Personal (Birthday) -->
+<section class="glass-card ios-shadow rounded-xl p-4 relative overflow-hidden group" style="transform: translate(1.64px, -4.665px);">
+<!-- Status Badge (Read) -->
+<div class="absolute top-4 left-4 flex items-center gap-1.5 opacity-40">
+<span class="w-2.5 h-2.5 rounded-full bg-outline"></span>
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">已查看</span>
+</div>
+<div class="mt-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-sm text-title-sm text-on-surface">凤姐 的 30 岁生日</h3>
+<span class="font-label-caps text-on-surface-variant opacity-60">明天</span>
+</div>
+<div class="inline-flex px-2 py-0.5 rounded-full bg-relationship-family/10 text-relationship-family font-label-caps text-[11px] mb-3">
+                    姐姐
+                </div>
+<div class="space-y-3">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-anniversary-gold" data-weight="fill">auto_awesome</span>
+<p class="font-label-caps text-label-caps text-on-surface font-semibold">AI 精选礼物建议</p>
+</div>
+<!-- Gift Item 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-outline-variant/20 bg-white/40 hover:bg-white/60 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden">
+<img alt="定制皮质日记本" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWJmRO2MiJX9JrnMOAPfT2BVVIPDNkxJK3EvnaCRYHtMi2VmDPLe7ZOVmnS93f_kVDhcOzNT7b5UiA9jjtE-29bMeMYPYJK89ftGxp0K_ddKW9o2ggZf7uOp8kQ-VOGX_EJuJUPjdE_4NZF3UJM2Y2MT0H_zRPNU2jT2-9Q7kYVKl_fAG5oEUxcjqvRDbnYzaIq4l1t3RE73_d6TXnVb0s6yb3ujc2gWRKNA9zHD_vZLM-igMZZT-HyIWKXGJvCLbqlNQWzV93wMw"/>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface">定制皮质日记本</p>
+<p class="font-caption text-caption text-on-surface-variant">$45.00 • 匠心品质</p>
+</div>
+</div>
+<a class="text-celebration-ruby font-label-caps text-label-caps font-bold hover:underline" href="#">去购买</a>
+</div>
+<!-- Gift Item 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-outline-variant/20 bg-white/40 hover:bg-white/60 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden">
+<img alt="有机水疗套装" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvzgP0e8ykI7DYtJd--tbN3TjfpYY8ZdNIk54L9GqZH4hPWdbvMGU1EliYUItGbTnRGevpaWEawNDumnnjc64-0L6ACi7-Fp8NCsHYhisBYyGFmeYSAd9hgFYRhLIRj1OuTrCiadFA8sYUyMTENZwXKFP33pVhajSLM6Er-8KvC_S7P1mWyEoHGdCR1dwgsuetVe2VulTjxoDq2PsicoNQ9DGxwzW9HjPHWfYA3Ml9vLsPymev1-4AKnzFu2mpqR0SomDhFq0IH8o"/>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface">有机水疗套装</p>
+<p class="font-caption text-caption text-on-surface-variant">$72.00 • 畅销爆款</p>
+</div>
+</div>
+<a class="text-celebration-ruby font-label-caps text-label-caps font-bold hover:underline" href="#">去购买</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Card 3: Social (Coffee Catch-up) -->
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl flex justify-around items-center pt-2 pb-safe px-4 h-16">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:bg-surface-container-high/50 transition-colors flex-1 h-full cursor-pointer active:scale-90 duration-150">
+<span class="material-symbols-outlined">contacts</span>
+<span class="font-label-caps text-label-caps">联系人</span>
+</div>
+<div class="flex flex-col items-center justify-center text-celebration-ruby font-semibold flex-1 h-full cursor-pointer active:scale-90 duration-150">
+<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>notifications</span>
+<span class="font-label-caps text-label-caps">提醒</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:bg-surface-container-high/50 transition-colors flex-1 h-full cursor-pointer active:scale-90 duration-150" onclick="window.location.href='{{DATA:SCREEN:SCREEN_14}}'">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">设置</span>
+</div>
+</nav>
+<script>
+    // Simple Micro-interaction for buttons
+    document.querySelectorAll('button, a').forEach(el => {
+        el.addEventListener('click', (e) => {
+            if (el.tagName === 'A' && el.getAttribute('href') === '#') e.preventDefault();
+        });
+    });
+
+    // Atmospheric effect: Subtle parallax on cards based on mouse/tilt
+    const cards = document.querySelectorAll('.glass-card');
+    document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
+        cards.forEach(card => {
+            card.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+        });
+    });
+</script>
+</body></html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {secondary: "#775a19", "anniversary-gold": "#C5A059", "secondary-fixed-dim": "#e9c176", "on-primary-container": "#ffffff", "on-error": "#ffffff", "on-background": "#261818", "on-secondary-container": "#785a1a", "tertiary-fixed": "#8ef6d2", "secondary-fixed": "#ffdea5", "on-surface-variant": "#594141", "on-secondary-fixed": "#261900", "primary-container": "#d43f52", "inverse-surface": "#3c2c2d", "error-container": "#ffdad6", "surface-container-low": "#fff0f0", "on-primary-fixed-variant": "#910427", "relationship-family": "#5856D6", "surface-container-highest": "#f6dddc", "on-tertiary-container": "#fffffc", "relationship-custom": "#AF52DE", "on-error-container": "#93000a", "on-secondary": "#ffffff", "primary-fixed-dim": "#ffb3b5", "on-surface": "#261818", tertiary: "#006a52", "surface-dim": "#eed4d4", "secondary-background": "#FFFFFF", error: "#ba1a1a", "inverse-primary": "#ffb3b5", "tertiary-background": "#F9F9F9", outline: "#8d7071", "surface-container": "#ffe9e9", "celebration-ruby": "#D43F52", "relationship-social": "#34C759", background: "#fff8f7", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#5d4201", "inverse-on-surface": "#ffedec", "system-background": "#F2F2F7", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#002117", "primary-fixed": "#ffdada", "on-primary-fixed": "#40000c", "tertiary-fixed-dim": "#72d9b6", "tertiary-container": "#008668", surface: "#fff8f7", "on-tertiary-fixed-variant": "#00513e", "surface-variant": "#f6dddc", "surface-tint": "#b3263c", "secondary-container": "#fed488", primary: "#b2253c", "on-primary": "#ffffff", "surface-container-high": "#fce2e2", "outline-variant": "#e1bebf", "surface-bright": "#fff8f7"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"touch-target": "2.75rem", "margin-page": "1rem", "stack-sm": "0.25rem", "stack-md": "0.5rem", "stack-lg": "1rem", "gutter-card": "0.75rem"}, fontFamily: {"title-lg": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "label-caps": ["Inter"], caption: ["Inter"], "display-lg": ["Inter"], "body-lg": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"title-lg": ["22px", {lineHeight: "28px", letterSpacing: "0.35px", fontWeight: "600"}], "headline-md": ["28px", {lineHeight: "34px", letterSpacing: "0.36px", fontWeight: "600"}], "body-sm": ["15px", {lineHeight: "20px", letterSpacing: "-0.24px", fontWeight: "400"}], "title-sm": ["20px", {lineHeight: "25px", letterSpacing: "0.38px", fontWeight: "500"}], "label-caps": ["13px", {lineHeight: "18px", letterSpacing: "0.06px", fontWeight: "500"}], caption: ["12px", {lineHeight: "16px", fontWeight: "400"}], "display-lg": ["34px", {lineHeight: "41px", letterSpacing: "0.37px", fontWeight: "700"}], "body-lg": ["17px", {lineHeight: "22px", letterSpacing: "-0.41px", fontWeight: "400"}]}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ios-toggle:checked ~ .ios-toggle-dot {
+            transform: translateX(100%);
+            background-color: white;
+        }
+        .ios-toggle:checked ~ .ios-toggle-bg {
+            background-color: #34C759;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg antialiased pb-24">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 glass-header flex justify-between items-center px-margin-page h-touch-target">
+<button class="flex items-center gap-1 text-celebration-ruby active:scale-95 transition-transform" onclick="window.history.back()">
+<span class="material-symbols-outlined">chevron_left</span>
+<span class="font-body-lg">返回</span>
+</button>
+<span class="font-title-lg text-title-lg text-on-surface">联系人详情</span>
+<button class="text-celebration-ruby font-semibold active:scale-95 transition-transform">编辑</button>
+</header>
+<main class="pt-16 max-w-[600px] mx-auto relative z-10">
+<!-- Hero Section -->
+<section class="flex flex-col items-center py-8 px-margin-page animate-in fade-in duration-700">
+<div class="relative mb-4">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl">
+<img alt="Eleanor Vance" class="w-full h-full object-cover" data-alt="A sophisticated portrait of a professional woman with a warm, genuine smile. The background is a soft-focus interior with warm, ambient lighting that complements the premium celebratory ruby and anniversary gold brand tones. The photography style is high-fidelity and editorial, emphasizing clean skin tones and a minimalist, serene atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOoYovlV79G9fMwwLrH9mqQsgu20IrbLYu1HkOXqdt9gybhoEKSfDgbkwB-g1lbBtuT0GpGdQU5mDOEKTeCXQ2YxSrHXfQovQXM20OaWE7kZaLi81tz0nbchwnIwkXCDTi4EVddnq4JwkudOofDIYDLUrvbrAMKExpOx8kfTh3d-kE1iYbNiyMtVmX0gu7lGpKtEb0TftFT2cGk_RUzyS_R6CuDsfQcAs2AOBHTvQxM90iy6bB5czIXEY4knrOa7aq3G-RKpn4NOc"/>
+</div>
+<div class="absolute bottom-1 right-1 bg-relationship-family text-white rounded-full p-1.5 border-2 border-white shadow-sm">
+<span class="material-symbols-outlined text-[16px]" style='font-variation-settings: "FILL" 1;'>favorite</span>
+</div>
+</div>
+<h1 class="font-display-lg text-display-lg text-center mb-1">赫本</h1>
+<div class="flex items-center gap-2">
+<span class="bg-relationship-family/10 text-relationship-family font-label-caps text-label-caps px-3 py-1 rounded-full">家人</span>
+<span class="text-on-surface-variant text-caption">• 姐姐</span>
+</div>
+</section>
+<!-- Segmented Control Tabs -->
+<div class="px-margin-page mb-6">
+<div class="bg-surface-variant p-1 rounded-xl flex">
+<button class="flex-1 py-2 text-label-caps font-label-caps rounded-lg transition-all shadow-sm bg-white text-on-surface" id="tab-anniversaries" onclick="switchTab('anniversaries')">纪念日</button>
+<button class="flex-1 py-2 text-label-caps font-label-caps rounded-lg transition-all text-on-surface-variant" id="tab-holidays" onclick="switchTab('holidays')">节假日</button>
+</div>
+</div>
+<!-- Section Content: Anniversaries -->
+<div class="px-margin-page space-y-4 animate-in slide-in-from-bottom-4 duration-500" id="content-anniversaries">
+<div class="flex justify-between items-center">
+<h2 class="font-title-sm text-title-sm">个人纪念日</h2>
+<button class="flex items-center gap-1 text-celebration-ruby text-label-caps font-label-caps active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    新增
+                </button>
+</div>
+<!-- Anniversary Cards -->
+<div class="space-y-stack-lg">
+<!-- Card 1 -->
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex justify-between items-center group active:scale-[0.98] transition-all">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">30岁生日</span>
+<span class="text-on-surface-variant text-body-sm italic">2024年9月14日</span>
+<div class="mt-2 flex">
+<span class="bg-relationship-family/10 text-relationship-family font-label-caps text-[11px] px-2 py-0.5 rounded-full">家人</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="text-celebration-ruby font-title-sm text-title-sm">12天</span>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="ios-toggle sr-only peer" type="checkbox"/>
+<div class="ios-toggle-bg w-full h-full bg-outline-variant rounded-full transition-colors duration-200"></div>
+<div class="ios-toggle-dot absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex justify-between items-center active:scale-[0.98] transition-all">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">硕士毕业</span>
+<span class="text-on-surface-variant text-body-sm italic">2024年10月28日</span>
+<div class="mt-2 flex">
+<span class="bg-anniversary-gold/10 text-anniversary-gold font-label-caps text-[11px] px-2 py-0.5 rounded-full">里程碑</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="text-celebration-ruby font-title-sm text-title-sm">56天</span>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="ios-toggle sr-only peer" type="checkbox"/>
+<div class="ios-toggle-bg w-full h-full bg-outline-variant rounded-full transition-colors duration-200"></div>
+<div class="ios-toggle-dot absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section Content: Holidays (Hidden by default) -->
+<div class="hidden px-margin-page space-y-4 animate-in slide-in-from-bottom-4 duration-500" id="content-holidays">
+<h2 class="font-title-sm text-title-sm">系统节假日</h2>
+<div class="bg-white rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-4 border-b border-surface-variant flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-celebration-ruby">calendar_today</span>
+<div>
+<p class="font-body-lg text-on-surface">圣诞节</p>
+<p class="text-caption text-on-surface-variant">2024年12月25日</p>
+</div>
+</div>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="ios-toggle sr-only peer" type="checkbox"/>
+<div class="ios-toggle-bg w-full h-full bg-outline-variant rounded-full transition-colors duration-200"></div>
+<div class="ios-toggle-dot absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm"></div>
+</div>
+</div>
+<div class="p-4 border-b border-surface-variant flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-anniversary-gold">auto_awesome</span>
+<div>
+<p class="font-body-lg text-on-surface">跨年夜</p>
+<p class="text-caption text-on-surface-variant">2024年12月31日</p>
+</div>
+</div>
+<div class="relative inline-block w-10 h-6">
+<input class="ios-toggle sr-only peer" type="checkbox"/>
+<div class="ios-toggle-bg w-full h-full bg-outline-variant rounded-full transition-colors duration-200"></div>
+<div class="ios-toggle-dot absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm"></div>
+</div>
+</div>
+<div class="p-4 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-relationship-family">groups</span>
+<div>
+<p class="font-body-lg text-on-surface">感恩节</p>
+<p class="text-caption text-on-surface-variant">2024年11月28日</p>
+</div>
+</div>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="ios-toggle sr-only peer" type="checkbox"/>
+<div class="ios-toggle-bg w-full h-full bg-outline-variant rounded-full transition-colors duration-200"></div>
+<div class="ios-toggle-dot absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            const annTab = document.getElementById('tab-anniversaries');
+            const holTab = document.getElementById('tab-holidays');
+            const annContent = document.getElementById('content-anniversaries');
+            const holContent = document.getElementById('content-holidays');
+
+            if (tab === 'anniversaries') {
+                annTab.classList.add('bg-white', 'text-on-surface', 'shadow-sm');
+                annTab.classList.remove('text-on-surface-variant');
+                holTab.classList.remove('bg-white', 'text-on-surface', 'shadow-sm');
+                holTab.classList.add('text-on-surface-variant');
+                
+                annContent.classList.remove('hidden');
+                holContent.classList.add('hidden');
+            } else {
+                holTab.classList.add('bg-white', 'text-on-surface', 'shadow-sm');
+                holTab.classList.remove('text-on-surface-variant');
+                annTab.classList.remove('bg-white', 'text-on-surface', 'shadow-sm');
+                annTab.classList.add('text-on-surface-variant');
+                
+                holContent.classList.remove('hidden');
+                annContent.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>
