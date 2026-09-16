@@ -9,11 +9,7 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
 
-    private let authManager: AuthManager
-
-    init(authManager: AuthManager) {
-        self.authManager = authManager
-    }
+    var authManager: AuthManager?
 
     func login() async {
         guard !phone.isEmpty else {
@@ -26,9 +22,9 @@ class LoginViewModel: ObservableObject {
 
         do {
             if useSmsLogin {
-                try await authManager.login(phone: phone, smsCode: smsCode)
+                try await authManager?.login(phone: phone, smsCode: smsCode)
             } else {
-                try await authManager.login(phone: phone, password: password)
+                try await authManager?.login(phone: phone, password: password)
             }
         } catch {
             errorMessage = error.localizedDescription
@@ -39,7 +35,7 @@ class LoginViewModel: ObservableObject {
 
     func sendSmsCode() async {
         do {
-            try await authManager.sendSmsCode(phone: phone, type: "login")
+            try await authManager?.sendSmsCode(phone: phone, type: "login")
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -2,12 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authManager: AuthManager
-    @StateObject private var viewModel: LoginViewModel
+    @StateObject private var viewModel = LoginViewModel()
     @State private var showRegister = false
-
-    init() {
-        _viewModel = StateObject(wrappedValue: LoginViewModel(authManager: AuthManager()))
-    }
 
     var body: some View {
         ZStack {
@@ -94,6 +90,7 @@ struct LoginView: View {
                 Spacer()
             }
             .onAppear {
+                viewModel.authManager = authManager
                 viewModel.errorMessage = nil
             }
         }
