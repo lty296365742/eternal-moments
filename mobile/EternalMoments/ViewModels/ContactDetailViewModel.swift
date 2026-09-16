@@ -22,4 +22,19 @@ class ContactDetailViewModel: ObservableObject {
         }
         isLoading = false
     }
+
+    func deleteContact(contactId: String) async -> Bool {
+        do {
+            let token = KeychainService.shared.getToken()
+            let _: EmptyResponse = try await api.request(
+                path: "contacts/\(contactId)",
+                method: "DELETE",
+                token: token
+            )
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
+    }
 }

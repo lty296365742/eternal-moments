@@ -10,9 +10,41 @@ class AddContactViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    let relationships = ["父亲", "母亲", "配偶", "子女", "朋友", "同事", "兄弟姐妹", "老师", "其他"]
+    @Published var relationships = AddContactViewModel.fallbackRelationships
+
+    static let fallbackRelationships = ["父亲", "母亲", "配偶", "子女", "朋友", "同事", "祖父母/外祖父母", "兄弟姐妹", "老师", "其他"]
+
+    let editingContact: Contact?
+    private var existingAvatar: String?
 
     private let api = APIClient.shared
+
+    init(editing contact: Contact? = nil) {
+        self.editingContact = contact
+        if let contact = contact {
+            name = contact.name
+            relationship = contact.relationship
+            notes = contact.notes ?? ""
+            existingAvatar = contact.avatar
+        }
+    }
+
+    var isEditing: Bool { editingContact != nil }
+
+    func loadRelationships() async {
+        do {
+            let token = KeychainService.shared.getToken()
+            let resp: RelationshipListData = try await api.request(path: "contacts/relationships", token: token)
+            var labels = (resp.preset + resp.custom).map { $0.label }
+            // 确保当前联系人的关系（可能是历史自定义值）仍可选
+            if !labels.contains(relationship) {
+                labels.append(relationship)
+            }
+            relationships = labels
+        } catch {
+            relationships = Self.fallbackRelationships
+        }
+    }
 
     func saveContact() async -> Bool {
         guard !name.isEmpty else {
@@ -34,12 +66,12 @@ class AddContactViewModel: ObservableObject {
             let request = ContactCreateRequest(
                 name: name,
                 relationship: relationship,
-                avatar: avatarUrl,
+                avatar: avatarUrl ?? existingAvatar,
                 notes: notes.isEmpty ? nil : notes
             )
             let _: Contact = try await api.request(
-                path: "contacts/",
-                method: "POST",
+                path: isEditing ? "contacts/\(editingContact!.contactId)" : "contacts/",
+                method: isEditing ? "PUT" : "POST",
                 body: request,
                 token: token
             )
@@ -94,4 +126,14 @@ struct ContactCreateRequest: Encodable {
     let relationship: String
     let avatar: String?
     let notes: String?
+}
+
+struct RelationshipListData: Decodable {
+    let preset: [RelationshipItem]
+    let custom: [RelationshipItem]
+}
+
+struct RelationshipItem: Decodable {
+    let key: String
+    let label: String
 }

@@ -2,8 +2,11 @@ import SwiftUI
 
 struct ContactDetailView: View {
     let contactId: String
+    @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = ContactDetailViewModel()
     @State private var selectedTab = 0
+    @State private var showEditContact = false
+    @State private var showDeleteConfirm = false
 
     var body: some View {
         ScrollView {
@@ -43,6 +46,41 @@ struct ContactDetailView: View {
             }
         }
         .navigationTitle("联系人详情")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button {
+                        showEditContact = true
+                    } label: {
+                        Label("编辑联系人", systemImage: "pencil")
+                    }
+                    Button(role: .destructive) {
+                        showDeleteConfirm = true
+                    } label: {
+                        Label("删除联系人", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+            }
+        }
+        .sheet(isPresented: $showEditContact, onDismiss: {
+            Task { await viewModel.loadContact(contactId: contactId) }
+        }) {
+            if let contact = viewModel.contact {
+                AddContactView(editing: contact)
+            }
+        }
+        .confirmationDialog("确定删除该联系人？删除后不可恢复", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
+            Button("删除联系人", role: .destructive) {
+                Task {
+                    if await viewModel.deleteContact(contactId: contactId) {
+                        dismiss()
+                    }
+                }
+            }
+            Button("取消", role: .cancel) {}
+        }
         .onAppear {
             Task { await viewModel.loadContact(contactId: contactId) }
         }

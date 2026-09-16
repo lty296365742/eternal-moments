@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authManager: AuthManager
     @StateObject private var viewModel = SettingsViewModel()
+    @State private var showChangePassword = false
 
     var body: some View {
         NavigationView {
@@ -46,6 +47,21 @@ struct SettingsView: View {
                     }
                 }
 
+                Section(header: Text("个人账号安全")) {
+                    Button {
+                        showChangePassword = true
+                    } label: {
+                        HStack {
+                            Text("修改密码")
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+
                 Section(header: Text("法律与隐私")) {
                     NavigationLink("隐私权政策") {
                         Text("隐私权政策内容待完善")
@@ -66,6 +82,9 @@ struct SettingsView: View {
                             .foregroundColor(Color(red: 212/255, green: 63/255, blue: 82/255))
                     }
                 }
+            }
+            .sheet(isPresented: $showChangePassword) {
+                ChangePasswordView()
             }
             .navigationTitle("设置")
         }

@@ -4,8 +4,8 @@ struct AddAnniversaryView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: AddAnniversaryViewModel
 
-    init(contactId: String, contactName: String) {
-        _viewModel = StateObject(wrappedValue: AddAnniversaryViewModel(contactId: contactId, contactName: contactName))
+    init(contactId: String, contactName: String, editing anniversary: Anniversary? = nil) {
+        _viewModel = StateObject(wrappedValue: AddAnniversaryViewModel(contactId: contactId, contactName: contactName, editing: anniversary))
     }
 
     var body: some View {
@@ -62,7 +62,7 @@ struct AddAnniversaryView: View {
                 .cornerRadius(10)
                 .listRowBackground(Color.clear)
             }
-            .navigationTitle("添加纪念日")
+            .navigationTitle(viewModel.isEditing ? "编辑纪念日" : "添加纪念日")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("取消") { dismiss() }

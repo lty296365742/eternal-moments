@@ -3,8 +3,12 @@ import PhotosUI
 
 struct AddContactView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel = AddContactViewModel()
+    @StateObject private var viewModel: AddContactViewModel
     @State private var selectedItem: PhotosPickerItem?
+
+    init(editing contact: Contact? = nil) {
+        _viewModel = StateObject(wrappedValue: AddContactViewModel(editing: contact))
+    }
 
     var body: some View {
         NavigationView {
@@ -17,6 +21,8 @@ struct AddContactView: View {
                                 .scaledToFill()
                                 .frame(width: 80, height: 80)
                                 .clipShape(Circle())
+                        } else if let contact = viewModel.editingContact, contact.avatar != nil {
+                            AvatarView(name: contact.name, avatarPath: contact.avatar, size: 80)
                         } else {
                             Circle()
                                 .fill(Color.gray.opacity(0.3))
@@ -61,11 +67,14 @@ struct AddContactView: View {
                 .cornerRadius(10)
                 .listRowBackground(Color.clear)
             }
-            .navigationTitle("添加联系人")
+            .navigationTitle(viewModel.isEditing ? "编辑联系人" : "添加联系人")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("取消") { dismiss() }
                 }
+            }
+            .onAppear {
+                Task { await viewModel.loadRelationships() }
             }
             .onChange(of: selectedItem) { newItem in
                 Task {
