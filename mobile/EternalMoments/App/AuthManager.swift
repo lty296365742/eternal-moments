@@ -9,7 +9,7 @@ class AuthManager: ObservableObject {
     private let api = APIClient.shared
 
     init() {
-        if let token = keychain.getToken() {
+        if keychain.getToken() != nil {
             isAuthenticated = true
         }
     }

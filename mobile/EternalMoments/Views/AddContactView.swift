@@ -14,7 +14,7 @@ struct AddContactView: View {
         NavigationView {
             Form {
                 Section {
-                    PhotosPicker(selection: $selectedItem, matching: .images) {
+                    PhotosPicker(selection: $selectedItem, matching: .images) { @MainActor in
                         if let image = viewModel.avatarImage {
                             Image(uiImage: image)
                                 .resizable()
