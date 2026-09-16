@@ -1,0 +1,24 @@
+# Eternal Moments — XcodeGen 工程定义
+# 用法（在 Mac / CI 上）:
+#   brew install xcodegen && xcodegen --spec mobile/project.yml
+# 会自动在 mobile/ 下生成 EternalMoments.xcodeproj（已 gitignore，不进仓库）
+
+name: EternalMoments
+options:
+  bundleIdPrefix: com.eternalmoments
+targets:
+  EternalMoments:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: EternalMoments
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.eternalmoments.app
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: "YES"
+        # 本地通知需要在 Info.plist 声明用途（GENERATE_INFOPLIST_FILE 生成，此处补授权描述）
+        INFOPLIST_KEY_NSContactsUsageDescription: ""
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"

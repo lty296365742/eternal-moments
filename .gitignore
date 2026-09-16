@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# 环境变量与密钥
+.env
+*.pem
+
+# 上传目录
+backend/uploads/
+
+# Xcode / XcodeGen 生成物（project.yml 是唯一需要提交的工程配置）
+mobile/EternalMoments.xcodeproj/
+
+# 系统
+.DS_Store
+Thumbs.db

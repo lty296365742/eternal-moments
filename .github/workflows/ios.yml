@@ -1,0 +1,38 @@
+name: iOS CI
+
+# 推送或 PR 涉及 iOS 代码时，在 macOS runner 上自动生成 Xcode 工程并编译验证
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/**"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "mobile/**"
+      - ".github/workflows/ios.yml"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: mobile
+        run: xcodegen --spec project.yml
+
+      - name: Build for iOS Simulator
+        working-directory: mobile
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project EternalMoments.xcodeproj \
+            -scheme EternalMoments \
+            -destination "generic/platform=iOS Simulator" \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            build | xcpretty
