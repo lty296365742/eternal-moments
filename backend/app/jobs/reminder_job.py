@@ -68,7 +68,11 @@ def start_scheduler():
     import sys
     if "pytest" in sys.modules:
         return
-    from apscheduler.schedulers.background import BackgroundScheduler
+    try:
+        from apscheduler.schedulers.background import BackgroundScheduler
+    except ImportError:
+        logger.warning("apscheduler 未安装，跳过定时任务启动")
+        return
     scheduler = BackgroundScheduler()
     scheduler.add_job(check_and_generate_reminders, "cron", hour=9, minute=0)
     scheduler.start()
