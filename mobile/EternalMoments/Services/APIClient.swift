@@ -10,7 +10,7 @@ enum APIError: Error {
 
 class APIClient {
     static let shared = APIClient()
-    private let baseURL = URL(string: "http://localhost:8000/api/v1")!
+    private let baseURL = URL(string: "http://localhost:8000/api/v1/")!
 
     private init() {}
 
@@ -60,4 +60,22 @@ struct APIResponse<T: Decodable>: Decodable {
     let code: Int
     let message: String
     let data: T
+
+    private enum CodingKeys: String, CodingKey {
+        case code, message, data
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(Int.self, forKey: .code)
+        message = try container.decode(String.self, forKey: .message)
+        if T.self == EmptyResponse.self {
+            data = (try container.decodeIfPresent(T.self, forKey: .data)) ?? EmptyResponse() as! T
+        } else {
+            data = try container.decode(T.self, forKey: .data)
+        }
+    }
 }
+
+/// Used for endpoints whose success response has `"data": null`.
+struct EmptyResponse: Decodable {}
