@@ -11,7 +11,22 @@ class AuthManager: ObservableObject {
     init() {
         if let token = keychain.getToken() {
             isAuthenticated = true
-            // 可选：调用 /auth/me 验证 token
+        }
+    }
+
+    func restoreUser() async {
+        struct MeResponse: Decodable {
+            let user_id: String
+            let phone: String
+            let nickname: String?
+        }
+        guard let token = keychain.getToken() else { return }
+        do {
+            let data: MeResponse = try await api.request(path: "auth/me", token: token)
+            currentUser = User(userId: data.user_id, phone: data.phone, nickname: data.nickname)
+        } catch {
+            // token 无效 → 强制回到未登录状态
+            isAuthenticated = false
         }
     }
 

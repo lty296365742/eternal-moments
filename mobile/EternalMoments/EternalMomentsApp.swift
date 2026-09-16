@@ -8,6 +8,7 @@ struct EternalMomentsApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authManager)
+                .task { await authManager.restoreUser() }
         }
     }
 }

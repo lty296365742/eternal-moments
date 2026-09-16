@@ -128,6 +128,32 @@ def _register_and_get_token(phone="13900000010", password="oldpass123"):
     return resp.json()["data"]["token"]
 
 
+def test_get_me_success():
+    client.post("/api/v1/auth/register", json={
+        "phone": TEST_PHONE,
+        "sms_code": "123456",
+        "password": TEST_PASSWORD,
+    })
+    login_resp = client.post("/api/v1/auth/login", json={
+        "phone": TEST_PHONE,
+        "password": TEST_PASSWORD,
+    })
+    token = login_resp.json()["data"]["token"]
+    user_id = login_resp.json()["data"]["user_id"]
+
+    resp = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["code"] == 0
+    assert body["data"]["user_id"] == user_id
+    assert body["data"]["phone"] == TEST_PHONE
+
+
+def test_get_me_without_token():
+    resp = client.get("/api/v1/auth/me")
+    assert resp.status_code == 403
+
+
 def test_change_password_with_old_password():
     token = _register_and_get_token()
     resp = client.put("/api/v1/auth/password", json={

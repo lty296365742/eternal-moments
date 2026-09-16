@@ -63,6 +63,22 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     }
 
 
+@router.get("/me")
+def get_me(user_id: str = Depends(get_current_user_id), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    return {
+        "code": 0,
+        "message": "success",
+        "data": {
+            "user_id": user.user_id,
+            "phone": user.phone,
+            "nickname": user.nickname,
+        }
+    }
+
+
 @router.put("/password")
 def change_password(
     data: ChangePasswordRequest,
