@@ -23,6 +23,11 @@ class AddAnniversaryViewModel: ObservableObject {
         if let anniversary = anniversary {
             repeatType = anniversary.repeatType
             selectedDate = Self.dateFromMonthDay(anniversary.monthDay) ?? Date()
+            // 无 title_key 即为自定义，直接预填，不依赖模板列表加载成功
+            if anniversary.titleKey == nil {
+                selectedTemplate = "其他"
+                customTitle = anniversary.title
+            }
         }
     }
 
@@ -33,10 +38,10 @@ class AddAnniversaryViewModel: ObservableObject {
             let token = KeychainService.shared.getToken()
             let resp: TemplateListData = try await api.request(path: "anniversaries/templates", token: token)
             templates = resp.list
-            if let anniversary = editingAnniversary {
-                // 用 title_key 匹配模板；无 key 则为自定义
-                if let key = anniversary.titleKey,
-                   let template = templates.first(where: { $0.titleKey == key }) {
+            if let anniversary = editingAnniversary,
+               let key = anniversary.titleKey {
+                // 有 title_key 时用其匹配模板；匹配不到则退回自定义
+                if let template = templates.first(where: { $0.titleKey == key }) {
                     selectedTemplate = template.label
                 } else {
                     selectedTemplate = "其他"

@@ -64,8 +64,11 @@ class APIClient {
         }
 
         guard (200...299).contains(httpResponse.statusCode) else {
-            let message = String(data: data, encoding: .utf8) ?? "Unknown error"
-            throw APIError.serverError(httpResponse.statusCode, message)
+            let raw = String(data: data, encoding: .utf8) ?? "Unknown error"
+            // 后端错误体为 {"detail": "..."}，提取 detail 以展示中文错误信息
+            let body = try? JSONDecoder().decode(APIErrorBody.self, from: data)
+            let detail = body?.detail ?? raw
+            throw APIError.serverError(httpResponse.statusCode, detail)
         }
 
         let apiResponse = try JSONDecoder().decode(APIResponse<T>.self, from: data)
@@ -96,3 +99,7 @@ struct APIResponse<T: Decodable>: Decodable {
 
 /// Used for endpoints whose success response has `"data": null`.
 struct EmptyResponse: Decodable {}
+
+private struct APIErrorBody: Decodable {
+    let detail: String?
+}

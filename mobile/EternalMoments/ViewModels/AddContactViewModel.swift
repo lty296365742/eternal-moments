@@ -67,7 +67,8 @@ class AddContactViewModel: ObservableObject {
                 name: name,
                 relationship: relationship,
                 avatar: avatarUrl ?? existingAvatar,
-                notes: notes.isEmpty ? nil : notes
+                // 编辑时必须显式传 notes（空串也传），否则后端 exclude_unset 会视为未修改，无法清空备注
+                notes: isEditing ? notes : (notes.isEmpty ? nil : notes)
             )
             let _: Contact = try await api.request(
                 path: isEditing ? "contacts/\(editingContact!.contactId)" : "contacts/",

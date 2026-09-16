@@ -17,6 +17,7 @@ class ContactDetailViewModel: ObservableObject {
                 token: token
             )
             self.contact = contact
+            errorMessage = nil
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -84,5 +84,13 @@ struct ContactDetailView: View {
         .onAppear {
             Task { await viewModel.loadContact(contactId: contactId) }
         }
+        .alert("操作失败", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }

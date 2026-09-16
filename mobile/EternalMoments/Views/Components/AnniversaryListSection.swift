@@ -101,12 +101,21 @@ struct AnniversaryListSection: View {
         .onAppear {
             Task { await viewModel.loadAnniversaries(contactId: contactId) }
         }
+        .alert("操作失败", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }
 
 @MainActor
 class AnniversaryListViewModel: ObservableObject {
     @Published var anniversaries: [Anniversary] = []
+    @Published var errorMessage: String?
     private let api = APIClient.shared
 
     func loadAnniversaries(contactId: String) async {
@@ -117,8 +126,9 @@ class AnniversaryListViewModel: ObservableObject {
                 token: token
             )
             anniversaries = resp.list
+            errorMessage = nil
         } catch {
-            print("Load anniversaries error: \(error)")
+            errorMessage = error.localizedDescription
         }
     }
 
@@ -132,7 +142,7 @@ class AnniversaryListViewModel: ObservableObject {
             )
             await loadAnniversaries(contactId: contactId)
         } catch {
-            print("Delete anniversary error: \(error)")
+            errorMessage = error.localizedDescription
         }
     }
 }
