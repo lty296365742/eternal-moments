@@ -1,0 +1,72 @@
+import SwiftUI
+import PhotosUI
+
+struct AddContactView: View {
+    @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel = AddContactViewModel()
+    @State private var selectedItem: PhotosPickerItem?
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section {
+                    PhotosPicker(selection: $selectedItem, matching: .images) {
+                        if let image = viewModel.avatarImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                        } else {
+                            Circle()
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 80, height: 80)
+                                .overlay(Image(systemName: "camera.fill").foregroundColor(.gray))
+                        }
+                    }
+                }
+
+                Section(header: Text("基本信息")) {
+                    TextField("姓名", text: $viewModel.name)
+                    Picker("关系", selection: $viewModel.relationship) {
+                        ForEach(viewModel.relationships, id: \.self) { rel in
+                            Text(rel).tag(rel)
+                        }
+                    }
+                }
+
+                Section(header: Text("个人偏好")) {
+                    TextEditor(text: $viewModel.notes)
+                        .frame(height: 100)
+                }
+
+                Button("保存") {
+                    Task {
+                        await viewModel.saveContact()
+                        dismiss()
+                    }
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color(red: 212/255, green: 63/255, blue: 82/255))
+                .cornerRadius(10)
+                .listRowBackground(Color.clear)
+            }
+            .navigationTitle("添加联系人")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("取消") { dismiss() }
+                }
+            }
+            .onChange(of: selectedItem) { newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self),
+                       let image = UIImage(data: data) {
+                        viewModel.avatarImage = image
+                    }
+                }
+            }
+        }
+    }
+}
