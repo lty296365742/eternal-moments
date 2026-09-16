@@ -109,7 +109,8 @@ def test_job_generates_personal_reminder(auth_headers):
     assert item["contact_id"] == contact_id
     assert item["event_title"] == "生日"
     assert item["event_date"] == target.isoformat()
-    assert item["remind_time"] == target.isoformat() + "T00:00:00"
+    remind_date = target - timedelta(days=5)
+    assert item["remind_time"] == remind_date.isoformat() + "T00:00:00"
     assert item["status"] == "unread"
     assert isinstance(item["gifts"], list) and len(item["gifts"]) > 0
     assert item["gifts"]
@@ -162,6 +163,8 @@ def test_job_generates_holiday_reminder(auth_headers):
     assert item["holiday_id"] == "HTEST0001"
     assert item["event_title"] == "测试节"
     assert item["event_date"] == holiday_date.isoformat()
+    remind_date = holiday_date - timedelta(days=3)
+    assert item["remind_time"] == remind_date.isoformat() + "T00:00:00"
     assert item["blessing"]
     assert "测试妈妈" in item["blessing"]
 

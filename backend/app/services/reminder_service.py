@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from sqlalchemy.orm import Session
 
@@ -84,7 +84,8 @@ class ReminderService:
             anniversary_id=anniversary.anniversary_id,
             event_title=anniversary.title,
             event_date=anniversary.next_date,
-            remind_time=datetime.combine(anniversary.next_date, datetime.min.time()),
+            remind_time=datetime.combine(
+                anniversary.next_date - timedelta(days=5), datetime.min.time()),
             status="unread",
             gifts=gifts,
         )
@@ -112,7 +113,8 @@ class ReminderService:
             holiday_id=holiday.holiday_id,
             event_title=holiday.name,
             event_date=holiday_date,
-            remind_time=datetime.combine(holiday_date, datetime.min.time()),
+            remind_time=datetime.combine(
+                holiday_date - timedelta(days=3), datetime.min.time()),
             status="unread",
             blessing=blessing,
         )
