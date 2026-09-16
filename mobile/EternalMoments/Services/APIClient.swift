@@ -27,7 +27,7 @@ extension APIError: LocalizedError {
 
 class APIClient {
     static let shared = APIClient()
-    private let baseURL = URL(string: "http://localhost:8000/api/v1/")!
+    private let baseURL = URL(string: "http://116.62.231.3:8000/api/v1/")!
 
     private init() {}
 

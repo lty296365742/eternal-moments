@@ -8,7 +8,7 @@ struct AvatarView: View {
 
     private var avatarURL: URL? {
         guard let path = avatarPath, !path.isEmpty else { return nil }
-        return URL(string: "http://localhost:8000\(path)")
+        return URL(string: "http://116.62.231.3:8000\(path)")
     }
 
     var body: some View {

@@ -86,7 +86,7 @@ class AddContactViewModel: ObservableObject {
     }
 
     private func uploadAvatar(imageData: Data, token: String?) async throws -> String {
-        let url = URL(string: "http://localhost:8000/api/v1/contacts/upload/avatar")!
+        let url = URL(string: "http://116.62.231.3:8000/api/v1/contacts/upload/avatar")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         if let token = token {
