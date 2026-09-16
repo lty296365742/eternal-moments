@@ -1,3 +1,4 @@
+import requests
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
@@ -50,6 +51,8 @@ def regenerate_blessing(
         blessing = service.regenerate_blessing(user_id, reminder_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except requests.RequestException:
+        raise HTTPException(status_code=502, detail="AI 服务暂不可用，请稍后重试")
     return {"code": 0, "message": "success", "data": {"blessing": blessing}}
 
 
@@ -64,4 +67,6 @@ def regenerate_gifts(
         gifts = service.regenerate_gifts(user_id, reminder_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except requests.RequestException:
+        raise HTTPException(status_code=502, detail="AI 服务暂不可用，请稍后重试")
     return {"code": 0, "message": "success", "data": {"gifts": gifts}}

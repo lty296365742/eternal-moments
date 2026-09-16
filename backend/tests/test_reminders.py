@@ -267,6 +267,69 @@ def _user_id(headers):
         db.close()
 
 
+class _FailingAIClient:
+    def generate_blessing(self, *args, **kwargs):
+        raise RuntimeError("AI 服务不可用")
+
+    def recommend_gifts(self, *args, **kwargs):
+        raise RuntimeError("AI 服务不可用")
+
+
+def test_job_resilient_to_ai_failure(auth_headers):
+    """单个纪念日 AI 失败不应中断整个扫描"""
+    contact_id = _create_contact(auth_headers)
+    contact_id_2 = _create_contact(auth_headers, name="测试爸爸", relationship="父亲")
+    target = date.today() + timedelta(days=5)
+    client.post("/api/v1/anniversaries/", json={
+        "contact_id": contact_id,
+        "title": "生日",
+        "date": target.strftime("%m-%d"),
+    }, headers=auth_headers)
+    client.post("/api/v1/anniversaries/", json={
+        "contact_id": contact_id_2,
+        "title": "结婚纪念日",
+        "date": target.strftime("%m-%d"),
+    }, headers=auth_headers)
+
+    monkeypatch_client = _FailingAIClient()
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("app.services.reminder_service.get_ai_client",
+                   lambda: monkeypatch_client)
+        # 不应抛出异常
+        check_and_generate_reminders()
+
+    # 正向对照：AI 恢复后重跑可正常生成
+    from app.services.ai_service import MockAIClient
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("app.services.reminder_service.get_ai_client",
+                   lambda: MockAIClient())
+        check_and_generate_reminders()
+
+    data = _get_reminders(auth_headers)
+    assert data["total"] == 2
+
+
+def test_volcano_gifts_parses_fenced_json(monkeypatch):
+    from app.services.ai_service import VolcanoArkClient
+    ai = VolcanoArkClient()
+    monkeypatch.setattr(
+        ai, "_chat",
+        lambda prompt: '```json\n[{"name": "x", "price": 1, "reason": "r", "purchase_url": "u"}]\n```'
+    )
+    gifts = ai.recommend_gifts("母亲", "测试妈妈", "生日")
+    assert isinstance(gifts, list)
+    assert gifts[0]["name"] == "x"
+
+
+def test_volcano_gifts_falls_back_on_non_json(monkeypatch):
+    from app.services.ai_service import VolcanoArkClient, MockAIClient
+    ai = VolcanoArkClient()
+    monkeypatch.setattr(ai, "_chat", lambda prompt: "抱歉我无法输出JSON")
+    gifts = ai.recommend_gifts("母亲", "测试妈妈", "生日")
+    assert gifts == MockAIClient().recommend_gifts("母亲", "测试妈妈", "生日")
+    assert len(gifts) == 3
+
+
 def test_unauthorized():
     resp = client.get("/api/v1/reminders/")
     assert resp.status_code == 403

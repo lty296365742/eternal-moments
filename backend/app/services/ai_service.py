@@ -1,9 +1,12 @@
 import json
+import logging
 from abc import ABC, abstractmethod
 
 import requests
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 ARK_API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
 
@@ -91,7 +94,11 @@ class VolcanoArkClient(AIClient):
             if lines and lines[-1].strip().startswith("```"):
                 lines = lines[:-1]
             content = "\n".join(lines).strip()
-        return json.loads(content)
+        try:
+            return json.loads(content)
+        except ValueError:
+            logger.warning("AI 礼物推荐返回非 JSON 内容，回退到模拟推荐: %s", content[:200])
+            return MockAIClient().recommend_gifts(relationship, receiver_name, event_title)
 
 
 def get_ai_client() -> AIClient:
