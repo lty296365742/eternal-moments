@@ -1,5 +1,8 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.routers import auth, contacts, anniversaries, holidays, reminders
 
@@ -18,6 +21,10 @@ app.include_router(contacts.router, prefix="/api/v1/contacts", tags=["contacts"]
 app.include_router(anniversaries.router, prefix="/api/v1/anniversaries", tags=["anniversaries"])
 app.include_router(holidays.router, prefix="/api/v1/holidays", tags=["holidays"])
 app.include_router(reminders.router, prefix="/api/v1/reminders", tags=["reminders"])
+
+# 静态文件：头像等上传文件
+os.makedirs("uploads/avatars", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 
 @app.get("/health")
