@@ -87,7 +87,7 @@ struct ReminderCard: View {
                             .font(.subheadline.bold())
                         Text(blessing)
                             .font(.subheadline)
-                            .foregroundColor(.darkGray)
+                            .foregroundColor(Color(uiColor: .darkGray))
                         Button {
                             UIPasteboard.general.string = blessing
                             copied = true
