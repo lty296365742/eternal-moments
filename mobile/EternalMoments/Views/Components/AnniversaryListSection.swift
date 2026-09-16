@@ -90,7 +90,7 @@ struct AnniversaryListSection: View {
                 if let anniversary = deletingAnniversary {
                     deletingAnniversary = nil
                     Task {
-                        await viewModel.deleteAnniversary(anniversaryId: anniversary.anniversaryId)
+                        await viewModel.deleteAnniversary(anniversaryId: anniversary.anniversaryId, contactId: contactId)
                     }
                 }
             }
@@ -132,7 +132,7 @@ class AnniversaryListViewModel: ObservableObject {
         }
     }
 
-    func deleteAnniversary(anniversaryId: String) async {
+    func deleteAnniversary(anniversaryId: String, contactId: String) async {
         do {
             let token = KeychainService.shared.getToken()
             let _: EmptyResponse = try await api.request(
