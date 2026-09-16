@@ -2,6 +2,7 @@ import uuid
 
 from sqlalchemy.orm import Session
 
+from app.models.anniversary import Anniversary
 from app.models.contact import Contact
 from app.schemas.contact import ContactCreate, ContactUpdate
 
@@ -35,18 +36,11 @@ class ContactService:
         contacts = query.offset((page - 1) * page_size).limit(page_size).all()
 
         # 补充每个联系人的纪念日数量
-        # 注意：Anniversary 模型在 Task 8 才创建，此处做兼容处理；
-        # Task 8 落地后应移除此 try/except 守卫。
-        try:
-            from app.models.anniversary import Anniversary
-            for contact in contacts:
-                contact.anniversary_count = self.db.query(Anniversary).filter(
-                    Anniversary.contact_id == contact.contact_id,
-                    Anniversary.status == 1
-                ).count()
-        except ImportError:
-            for contact in contacts:
-                contact.anniversary_count = 0
+        for contact in contacts:
+            contact.anniversary_count = self.db.query(Anniversary).filter(
+                Anniversary.contact_id == contact.contact_id,
+                Anniversary.status == 1
+            ).count()
 
         return total, contacts
 
