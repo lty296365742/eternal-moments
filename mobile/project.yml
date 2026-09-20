@@ -13,6 +13,8 @@ targets:
     deploymentTarget: "16.0"
     sources:
       - path: EternalMoments
+      - path: EternalMoments/Assets.xcassets
+        type: folder
     info:
       path: EternalMoments/Info.plist
       properties:

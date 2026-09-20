@@ -8,6 +8,11 @@ venv/
 # 环境变量与密钥
 .env
 *.pem
+*.p12
+*.mobileprovision
+*.cer
+*.keychain
+*.keychain-db
 
 # 上传目录
 backend/uploads/
